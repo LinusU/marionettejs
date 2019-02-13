@@ -1,0 +1,43 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "JSBridge",
+        "repositoryURL": "https://github.com/LinusU/JSBridge",
+        "state": {
+          "branch": null,
+          "revision": "b1a6660e08af766cc3857ab8a3fdb04cc269143d",
+          "version": "1.0.0-alpha.13"
+        }
+      },
+      {
+        "package": "Marionette",
+        "repositoryURL": "https://github.com/LinusU/Marionette",
+        "state": {
+          "branch": null,
+          "revision": "73bff4a10018b5a4f4a6b5affb9515f56e4d10b6",
+          "version": "1.0.0-alpha.10"
+        }
+      },
+      {
+        "package": "PromiseKit",
+        "repositoryURL": "https://github.com/mxcl/PromiseKit",
+        "state": {
+          "branch": null,
+          "revision": "db3b2aaf0b26299c1828e0a302adf1a5523f4af5",
+          "version": "6.8.3"
+        }
+      },
+      {
+        "package": "Signals",
+        "repositoryURL": "https://github.com/artman/Signals",
+        "state": {
+          "branch": null,
+          "revision": "e6266a1346c8480914cda001566a69c4d51fa15c",
+          "version": "6.0.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

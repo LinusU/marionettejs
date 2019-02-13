@@ -1,0 +1,10 @@
+{
+  "name": "marionettejs",
+  "version": "0.0.0",
+  "license": "MIT",
+  "repository": "LinusU/marionettejs",
+  "scripts": {
+    "test": "node test",
+    "postinstall": "swift build -c release -Xswiftc -target -Xswiftc x86_64-apple-macosx10.13 -Xlinker -undefined -Xlinker dynamic_lookup && mv .build/release/libMarionetteJS.dylib .build/release/MarionetteJS.node"
+  }
+}
