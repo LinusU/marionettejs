@@ -8,9 +8,8 @@ let package = Package(
         .library(name: "MarionetteJS", type: .dynamic, targets: ["MarionetteTrampoline", "MarionetteJS"]),
     ],
     dependencies: [
-        // .package(url: "../NAPI", .branch("master")),
-        .package(path: "../NAPI"),
         .package(url: "https://github.com/LinusU/Marionette", from: "1.0.0-alpha.10"),
+        .package(url: "https://github.com/LinusU/swift-napi-bindings", from: "1.0.0-alpha.2"),
     ],
     targets: [
         .target(name: "MarionetteTrampoline", dependencies: ["NAPIC", "NAPI"], path: "Sources/MarionetteTrampoline"),
