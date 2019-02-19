@@ -8,6 +8,8 @@ function startServer () {
     res.end('<!DOCTYPE html><html><body>Hello, World!</body></html>')
   })
 
+  server.unref()
+
   return new Promise((resolve) => {
     server.listen(58234, () => resolve(`http://localhost:58234`))
   })
@@ -34,11 +36,14 @@ async function main () {
     const result = await page.evaluate('{ a: 1, b: [2, 3], c: null, d: { foo: "bar", baz: true } }')
     assert.deepStrictEqual(result, { a: 1, b: [2, 3], c: null, d: { foo: "bar", baz: true } })
   }
-
-  process.exit(0)
 }
 
-main().catch((err) => {
-  process.exitCode = 1
-  console.error(err.stack)
-})
+main().then(
+  () => {
+    console.log('ok')
+  },
+  (err) => {
+    process.exitCode = 1
+    console.error(err.stack)
+  }
+)

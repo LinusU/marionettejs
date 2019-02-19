@@ -3,10 +3,6 @@ import Foundation
 import Marionette
 import PromiseKit
 
-func runLoop() {
-  CFRunLoopRunInMode(.defaultMode, 0.02, false)
-}
-
 func pageClick(this: Marionette, selector: String) -> Promise<Void> {
   return this.click(selector)
 }
@@ -46,8 +42,6 @@ func pageWaitForSelector(this: Marionette, selector: String) -> Promise<Void> {
 @_cdecl("_init_marionettejs")
 func initMarionetteJS(env: OpaquePointer, exports: OpaquePointer) -> OpaquePointer? {
   return NAPI.initModule(env, exports, [
-    .function("runLoop", runLoop),
-
     .class("Page", Marionette.init, [
       .method("click", pageClick),
       .method("goto", pageGoto),
