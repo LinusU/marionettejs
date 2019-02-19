@@ -42,8 +42,8 @@
         "repositoryURL": "https://github.com/LinusU/swift-napi-bindings",
         "state": {
           "branch": null,
-          "revision": "43f916e6ba64696dd5758db485bf53ec5a7d38a6",
-          "version": "1.0.0-alpha.2"
+          "revision": "aa1275157f053950e4c6a094cbf8f055f7981e85",
+          "version": "1.0.0-alpha.3"
         }
       }
     ]

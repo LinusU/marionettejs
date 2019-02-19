@@ -2,6 +2,15 @@ import NAPI
 import NAPIC
 import PromiseKit
 
+fileprivate func createError(_ env: napi_env, message: String) throws -> napi_value {
+    var result: napi_value!
+
+    let status = napi_create_error(env, nil, try? message.napiValue(env), &result)
+    guard status == napi_ok else { throw NAPI.Error(status) }
+
+    return result
+}
+
 fileprivate extension napi_deferred {
     func resolve(_ env: napi_env, _ resolution: napi_value) throws {
         let status = napi_resolve_deferred(env, self, resolution)
@@ -51,7 +60,11 @@ extension Promise: NAPI.ValueConvertible where T: NAPI.ValueConvertible {
         self.done {
             try deferred.resolve(env, $0.napiValue(env))
         }.catch {
-            try! deferred.reject(env, $0.napiValue(env))
+            if let value = $0 as? ValueConvertible {
+                try! deferred.reject(env, value.napiValue(env))
+            } else {
+                try! deferred.reject(env, createError(env, message: $0.localizedDescription))
+            }
         }.finally {
             NAPI.RunLoop.unref()
         }
