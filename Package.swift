@@ -9,7 +9,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/LinusU/Marionette", from: "1.0.0-alpha.10"),
-        .package(url: "https://github.com/LinusU/swift-napi-bindings", from: "1.0.0-alpha.3"),
+        .package(url: "https://github.com/LinusU/swift-napi-bindings", from: "1.0.0-alpha.4"),
     ],
     targets: [
         .target(name: "MarionetteTrampoline", dependencies: ["NAPIC", "NAPI"], path: "Sources/MarionetteTrampoline"),
