@@ -49,8 +49,6 @@ extension Promise: NAPI.ValueConvertible where T: NAPI.ValueConvertible {
     }
 
     public func napiValue(_ env: napi_env) throws -> napi_value {
-        try NAPI.RunLoop.ref(env)
-
         var deferred: napi_deferred!
         var promise: napi_value!
 
@@ -65,8 +63,6 @@ extension Promise: NAPI.ValueConvertible where T: NAPI.ValueConvertible {
             } else {
                 try! deferred.reject(env, createError(env, message: $0.localizedDescription))
             }
-        }.finally {
-            NAPI.RunLoop.unref()
         }
 
         return promise

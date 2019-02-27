@@ -1,7 +1,43 @@
+import AppKit
 import NAPI
 import Foundation
 import Marionette
 import PromiseKit
+
+class AppDelegate: NSObject, NSApplicationDelegate {
+  let window = NSWindow(contentRect: NSMakeRect(20, 20, 1024, 768), styleMask: [.titled, .closable, .miniaturizable, .resizable], backing: .buffered, defer: false, screen: nil)
+
+  func applicationDidFinishLaunching(_ notification: Notification) {
+    window.orderBack(nil)
+  }
+}
+
+var globalDelegate: AppDelegate!
+
+func setup() {
+  globalDelegate = AppDelegate()
+  NSApplication.shared.delegate = globalDelegate
+  NSApplication.shared.activate(ignoringOtherApps: true)
+  NSApplication.shared.finishLaunching()
+}
+
+func processEvents() {
+  while let event = NSApplication.shared.nextEvent(matching: .any, until: .distantPast, inMode: .default, dequeue: true) {
+    NSApplication.shared.sendEvent(event)
+  }
+}
+
+class MarionetteJS: Marionette {
+  override init() {
+    super.init()
+    self.webView.configuration.preferences.setValue(true, forKey: "developerExtrasEnabled")
+    globalDelegate.window.contentView!.addSubview(self.webView)
+  }
+
+  deinit {
+    self.webView.removeFromSuperview()
+  }
+}
 
 func pageClick(this: Marionette, selector: String) -> Promise<Void> {
   return this.click(selector)
@@ -42,7 +78,10 @@ func pageWaitForSelector(this: Marionette, selector: String) -> Promise<Void> {
 @_cdecl("_init_marionettejs")
 func initMarionetteJS(env: OpaquePointer, exports: OpaquePointer) -> OpaquePointer? {
   return NAPI.initModule(env, exports, [
-    .class("Page", Marionette.init, [
+    .function("setup", setup),
+    .function("processEvents", processEvents),
+
+    .class("Page", MarionetteJS.init, [
       .method("click", pageClick),
       .method("goto", pageGoto),
       .method("evaluate", pageEvaluate),
